@@ -34,7 +34,8 @@ npm i --save-dev babel-plugin-transform-default-import
 {
     "plugins": ["transform-default-import", {
         "default": "__DEFAULT__",
-        "namespace": "__NAMESPACE__"
+        "namespace": "__NAMESPACE__",
+        "hybrid": true
     }]
 }
 ```
@@ -46,7 +47,8 @@ npm i --save-dev babel-plugin-transform-default-import
     "babel": {
         "plugins": ["transform-default-import", {
             "default": "__DEFAULT__",
-            "namespace": "__NAMESPACE__"
+            "namespace": "__NAMESPACE__",
+            "hybrid": true
         }]
     }
 }
