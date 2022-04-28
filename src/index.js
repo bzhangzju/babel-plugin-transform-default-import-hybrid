@@ -3,11 +3,13 @@ module.exports = function({ types: t }) {
         name: 'transform default import',
         visitor: {
             ImportDeclaration(path, state) {
+                // add an option `hybrid` to allow imports like `import React, { useEffect } from 'react'` when running unit tests in Jest
+                const hybrid = state.opts.hybrid || false;
                 const specifiers = path.node.specifiers;
                 const defaultSpecifier = specifiers.find(specifier => t.isImportDefaultSpecifier(specifier));
                 if (!defaultSpecifier || path.node.source.value.indexOf('.') !== -1)
                     return;
-                if (specifiers.find(specifier => t.isImportSpecifier(specifier)))
+                if (!hybrid && specifiers.find(specifier => t.isImportSpecifier(specifier)))
                     return;
                 const namespaceSpecifier = specifiers.find(specifier => t.isImportNamespaceSpecifier(specifier));
                 const name = defaultSpecifier.local.name;
